@@ -4,17 +4,11 @@ var join = require('path').join
 var handlebars = require('express-handlebars')
   .create({defaultLayout: 'main'})
 
+var fortunes = require('./modules/fortunes')
+
 app.engine('handlebars', handlebars.engine)
 app.set('view engine', 'handlebars')
 app.set('port', 3000)
-
-var fortunes = [
-  'Conquer your fears or they will conquer you.',
-  'Rivers need springs.',
-  "Do not fear what you don't know.",
-  'You will have a pleasant surprise.',
-  'Whenever possible, keep it simple.'
-]
 
 app.use(
   [express.static(join(__dirname, '/public'))]
@@ -25,8 +19,7 @@ app.get('/', (req, res) => {
 })
 
 app.get('/about', (req, res) => {
-  var randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)]
-  res.render('about', { fortune: randomFortune })
+  res.render('about', { fortune: fortunes() })
 })
 
 app.use(function (req, res) {
