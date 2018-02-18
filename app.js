@@ -32,6 +32,13 @@ app.get('/about', (req, res) => {
   })
 })
 
+app.get('/tours/hood-river', (req, res) => {
+  res.render('tours/hood-river')
+})
+app.get('/tours/request-group-rate', (req, res) => {
+  res.render('tours/request-group-rate')
+})
+
 app.use(function (req, res) {
   res.type('text/plain')
   res.status(404)
