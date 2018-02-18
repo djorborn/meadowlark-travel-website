@@ -1,18 +1,46 @@
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Meadowlark Travel</title>
+
+  {{#if showTests}}
+    <link rel="stylesheet" href="/vender/mocha.css" />
+  {{/if}}
+  <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
 </head>
+
 <body>
-  <header><img src="/img/logo.png" alt="Meadowlark Travel Logo" ></header>
+  <header><img src="/img/logo.png" alt="Meadowlark Travel Logo"></header>
   {{{body}}}
 
   <script>
-    setTimeout(function(){
+    setTimeout(function() {
       location.reload()
     }, 5000);
   </script>
+
+  {{#if showTests}}
+    <div id="mocha"></div>
+    <script src="/vender/mocha.js"></script>
+    <script src="/vender/chai.js" charset="utf-8"></script>
+    <script type="text/javascript">
+      mocha.ui('tdd')
+      var assert = chai.assert
+    </script>
+    <script src="/qa/test-global.js" charset="utf-8"></script>
+
+    {{#if pageTestScript}}
+      <script src="{{pageTestScript}}" charset="utf-8"></script>
+    {{/if}}
+    <script>
+      mocha.run()
+    </script>
+  {{/if}}
+
+
 </body>
+
 </html>

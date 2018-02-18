@@ -11,7 +11,14 @@ app.set('view engine', 'handlebars')
 app.set('port', 3000)
 
 app.use(
-  [express.static(join(__dirname, '/public'))]
+  [express.static(join(__dirname, '/public'))],
+  [function (req, res, next) {
+    var test = req.query.test
+    if (test) {
+      res.locals.showTests = true
+    }
+    next()
+  }]
 )
 
 app.get('/', (req, res) => {
@@ -19,7 +26,10 @@ app.get('/', (req, res) => {
 })
 
 app.get('/about', (req, res) => {
-  res.render('about', { fortune: fortunes() })
+  res.render('about', {
+    fortune: fortunes(),
+    pageTestScript: '/qa/test-about.js'
+  })
 })
 
 app.use(function (req, res) {
